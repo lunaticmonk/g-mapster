@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign up</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<header>
+	<% include ./navbar %>
+	</header>
+	<div class = "container">
+		<form action = "" method = "POST">
+		<div class = "row">
+			<input type="text" name="firstname" placeholder = "Firstname" class = "col s6">
+			<input type="text" name="lastname" placeholder = "Lastname" class = "col s6">
+		</div>
+			<input type="email" name="email" placeholder = "Email">
+			<input type="password" name="password" placeholder = "Password">
+			<input type="submit" name="submit" placeholder = "Signup" class = "btn cyan">
+		</form>
+	</div>
+</body>
+</html>
