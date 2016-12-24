@@ -17,5 +17,9 @@
     "firebase": "^3.6.4",
     "mongodb": "^2.2.16",
     "mongoose": "^4.7.3"
+  },
+  "engines" : {
+    "node" : "4.4.7",
+    "npm" : "3.10.7"
   }
 }
