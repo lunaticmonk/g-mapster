@@ -6,6 +6,7 @@ var bodyparser = require('body-parser');
 var User = require('./models/user');
 var hash = require('./my_modules/smallfunc');
 var session = require('client-sessions');
+var port = process.env.PORT || 8000;
 
 mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 
@@ -82,5 +83,5 @@ router.get('/logout', function(req, res){
 });
 
 app.use('/', router);
-app.listen(8000);
+app.listen(port);
 console.log('server started');
