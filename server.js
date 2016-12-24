@@ -34,6 +34,7 @@ app.route('/login')
 				throw err
 			else{
 				if(user[0].password == hash(req.body.password)){
+					req.session.user = user[0];
 					res.redirect('/home');
 				}
 				else{

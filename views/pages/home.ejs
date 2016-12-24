@@ -10,7 +10,7 @@
 	<% include ../partials/navbar %>
 	<a href="/logout">Logout</a>
 </header>
-	<input class = "btn-floating btn-large cyan" type = "file" id = "pushbtn">
+<!-- location -->
 	<input id="pac-input" class="controls" type="text"
         placeholder="Enter a location">
     <div id="type-selector" class="controls">
@@ -19,17 +19,48 @@
 
       <input type="radio" name="type" id="changetype-establishment">
       <label for="changetype-establishment">Establishments</label>
-
+      
       <input type="radio" name="type" id="changetype-address">
       <label for="changetype-address">Addresses</label>
 
       <input type="radio" name="type" id="changetype-geocode">
       <label for="changetype-geocode">Geocodes</label>
     </div>
-    <div id="map"></div>
-    <h1 id = "firebasetest"></h1>
+    <!-- end location -->
+
+    <!-- directions -->
+    <input id="origin-input" class="controls" type="text"
+        placeholder="Enter an origin location">
+
+    <input id="destination-input" class="controls" type="text"
+        placeholder="Enter a destination location">
+
+    <div id="mode-selector" class="controls">
+      <input type="radio" name="type" id="changemode-walking" checked="checked">
+      <label for="changemode-walking">Walking</label>
+
+      <input type="radio" name="type" id="changemode-transit">
+      <label for="changemode-transit">Transit</label>
+
+      <input type="radio" name="type" id="changemode-driving">
+      <label for="changemode-driving">Driving</label>
+    </div>
+    <!-- end directions -->
+    <div class = "row">
+	    <div id="map" class = "col s8"></div>
+	    <div id = "list" class = "col s3">
+	    	<ul>
+	    		<li class = "card-panel">one</li>
+	    		<li class = "card-panel">two</li>
+	    		<li class = "card-panel">three</li>
+	    		<li class = "card-panel">four</li>
+	    	</ul>
+	    </div>
+  	</div>
+	<input class = "cyan" type = "file" id = "pushbtn">
 </body>
 	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+	<script type="text/javascript" src = "js/autocomplete.js"></script>
 	<script type="text/javascript">
 		var config = {
 		    apiKey: "AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM",
@@ -98,15 +129,37 @@
 		        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
 		        placeMarker(location, map);
 		      });
-			var marker = new google.maps.Marker({
-		        position: { lat : position.coords.latitude, lng : position.coords.longitude },
-		        map: map
-	        });
-	        console.log('Position marked on map');
 		}
 
+		function placeMarker(location, map){
+			var marker = new google.maps.Marker({
+		        position: location,
+		        map: map,
+		        icon : 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+		        title : 'Hello World!'
+	        });
+		}
+
+		function initMap(){
+			if(navigator.geolocation){
+				navigator.geolocation.getCurrentPosition(function(position){
+				var map = new google.maps.Map(document.getElementById('map'), {
+		          	zoom: 4,
+		          	center: { lat : position.coords.latitude-5, lng : position.coords.longitude-5 }
+	        	});
+	        	var ref = firebase.database().ref('/');
+	        	ref.orderByChild('latitude').on('child_added', function(snapshot){
+			        // console.log(snapshot.val().latitude);
+			        // console.log(snapshot.val().longitude);
+			        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
+			        placeMarker(location, map);
+				});
+		 		new AutocompleteDirectionsHandler(map);
+			});
+		}
+	}
+
 	</script>
-	<script type = "text/javascript" src = "js/googlemaps.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM&libraries=places&callback=initMap">
     </script>
 </html>
