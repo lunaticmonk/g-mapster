@@ -50,10 +50,6 @@
 	    <div id="map" class = "col s8"></div>
 	    <div id = "list" class = "col s3">
 	    	<ul>
-	    		<li class = "card-panel">one</li>
-	    		<li class = "card-panel">two</li>
-	    		<li class = "card-panel">three</li>
-	    		<li class = "card-panel">four</li>
 	    	</ul>
 	    </div>
   	</div>
@@ -148,9 +144,14 @@
 		          	center: { lat : position.coords.latitude-5, lng : position.coords.longitude-5 }
 	        	});
 	        	var ref = firebase.database().ref('/');
+		        var list = document.querySelector('#list ul');
 	        	ref.orderByChild('latitude').on('child_added', function(snapshot){
 			        // console.log(snapshot.val().latitude);
 			        // console.log(snapshot.val().longitude);
+			        console.log(snapshot.val());
+			        var li = document.createElement('li');
+			        li.innerHTML = '<li class = "card-panel">' + '<h6>Latitude : ' + snapshot.val().latitude + '<br>' + 'Longitude : ' + snapshot.val().longitude + '<br>' + '<br>' +'<a href ='  + snapshot.val().imageURL + '>' + 'See the image' + '</a>' + '</h6></li>';
+			        list.appendChild(li);
 			        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
 			        placeMarker(location, map);
 				});

@@ -53,10 +53,6 @@ app.route('/signup')
 
 	.post(function(req, res){
 		console.log(req.body.firstname, req.body.lastname);
-		if(User.find({ email : req.body.email })){
-			res.send('User with this email has been registered before.');
-		}
-		else{
 			var newUser = new User({			
 				firstname : req.body.firstname,
 				lastname : req.body.lastname,
@@ -70,7 +66,6 @@ app.route('/signup')
 				console.log('new user saved successfully');
 			});
 			res.redirect('/signup');
-		}
 	});
 
 router.get('/home', function(req, res){
