@@ -13,6 +13,7 @@
 <!-- location -->
 	<input id="pac-input" class="controls" type="text"
         placeholder="Enter a location">
+        <div class = "card-panel" id = "yourlocation"></div>
     <div id="type-selector" class="controls">
       <input type="radio" name="type" id="changetype-all" checked="checked">
       <label for="changetype-all">All</label>
@@ -54,6 +55,7 @@
 	    </div>
   	</div>
 	<input class = "cyan" type = "file" id = "pushbtn">
+	<button id = "accuratebtn">Accurate location</button>
 </body>
 	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 	<script type="text/javascript" src = "js/autocomplete.js"></script>
@@ -116,12 +118,12 @@
 			console.log('markTheMap map');
 			var map = new google.maps.Map(document.getElementById('map'), {
 	          	zoom: 4,
-	          	center: { lat : position.coords.latitude-5, lng : position.coords.longitude-5 }
+	          	center: { lat : position.coords.latitude-2, lng : position.coords.longitude-2 }
         	});
         	var ref = firebase.database().ref('/');
         	ref.orderByChild('latitude').on('child_added', function(snapshot){
-		        console.log(snapshot.val().latitude);
-		        console.log(snapshot.val().longitude);
+		        // console.log(snapshot.val().latitude);
+		        // console.log(snapshot.val().longitude);
 		        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
 		        placeMarker(location, map);
 		      });
@@ -132,13 +134,15 @@
 		        position: location,
 		        map: map,
 		        icon : 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-		        title : 'Hello World!'
+		        title : getMyLocation(location)
 	        });
 		}
 
 		function initMap(){
 			if(navigator.geolocation){
 				navigator.geolocation.getCurrentPosition(function(position){
+					var yourlocation = document.querySelector('#yourlocation');
+					yourlocation.innerHTML = position.coords.latitude + '<br>' + position.coords.longitude;
 				var map = new google.maps.Map(document.getElementById('map'), {
 		          	zoom: 4,
 		          	center: { lat : position.coords.latitude-5, lng : position.coords.longitude-5 }
@@ -148,9 +152,9 @@
 	        	ref.orderByChild('latitude').on('child_added', function(snapshot){
 			        // console.log(snapshot.val().latitude);
 			        // console.log(snapshot.val().longitude);
-			        console.log(snapshot.val());
+			        // console.log(snapshot.val());
 			        var li = document.createElement('li');
-			        li.innerHTML = '<li class = "card-panel">' + '<h6>Latitude : ' + snapshot.val().latitude + '<br>' + 'Longitude : ' + snapshot.val().longitude + '<br>' + '<br>' +'<a href ='  + snapshot.val().imageURL + '>' + 'See the image' + '</a>' + '</h6></li>';
+			        li.innerHTML = '<li class = "card-panel">' + '<h6>Latitude : ' + snapshot.val().latitude + '<br>' + 'Longitude : ' + snapshot.val().longitude + '<br>' + '<br>' +'<a href ='  + snapshot.val().imageURL + ' target = "blank">' + 'See the image' + '</a>' + '</h6></li>';
 			        list.appendChild(li);
 			        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
 			        placeMarker(location, map);
@@ -161,6 +165,8 @@
 	}
 
 	</script>
+    <script type="text/javascript" src = "js/googlemaps.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM&libraries=places&callback=initMap">
     </script>
+    <script type="text/javascript" src = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM"></script>
 </html>
