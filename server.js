@@ -21,7 +21,7 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 router.get('/', function(req, res){
-	res.render('pages/index');
+	res.redirect('/user');
 });
 
 app.route('/login')
@@ -36,7 +36,7 @@ app.route('/login')
 			else{
 				if(user[0].password == hash(req.body.password)){
 					req.session.user = user[0];
-					res.redirect('/home');
+					res.redirect('/user');
 				}
 				else{
 					res.render('pages/login');
@@ -68,8 +68,8 @@ app.route('/signup')
 			res.redirect('/signup');
 	});
 
-router.get('/home', function(req, res){
-	res.render('pages/home');
+router.get('/user', function(req, res){
+	res.render('pages/user');
 });
 
 router.get('/logout', function(req, res){

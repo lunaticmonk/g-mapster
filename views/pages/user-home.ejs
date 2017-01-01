@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User panel</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+	<style type="text/css">
+		html, body {
+			margin : 0;
+			padding : 0;
+		}
+
+		body {
+			background-color : #A3E4D7;
+
+		}
+
+		main {
+			display : flex;
+			flex-direction : column;
+			justify-content: center;
+			align-items : center;
+		}
+
+		#uploadbtn {
+			display : none;
+		}
+
+		#uploadbtnvisible {
+			transform : translateY(20rem);
+		}
+		label {
+			color : #5D6D7E;
+			font-size : 4em;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<button class = "btn-floating btn-large waves-effect waves-light cyan z-depth-4" id = "uploadbtnvisible" name = "uploadbtn" type = "file"><i class = "material-icons">publish</i></button>
+		<input type = "file" id = "uploadbtn">
+		<label for = "uploadbtnvisible" class = "card-panel z-depth-2">Upload</label>
+	</main>
+</body>
+<script type="text/javascript" src = "../../public/js/test.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+<script type="text/javascript" src = "js/autocomplete.js"></script>
+<script type="text/javascript" src = "js/googlemaps.js"></script>
+
+
+<script type="text/javascript">
+	var originaluploadbtn = document.querySelector('#uploadbtn');
+	var visiblebtn = document.querySelector('#uploadbtnvisible');
+	visiblebtn.addEventListener('click', function(){
+		originaluploadbtn.click();
+	});
+
+	function initMap(){
+			if(navigator.geolocation){
+				navigator.geolocation.getCurrentPosition(function(position){
+					var yourlocation = document.querySelector('#yourlocation');
+					yourlocation.innerHTML = position.coords.latitude + '<br>' + position.coords.longitude;
+				var map = new google.maps.Map(document.getElementById('map'), {
+		          	zoom: 4,
+		          	center: { lat : position.coords.latitude-5, lng : position.coords.longitude-5 }
+	        	});
+	        	var ref = firebase.database().ref('/');
+		        var list = document.querySelector('#list ul');
+	        	ref.orderByChild('latitude').on('child_added', function(snapshot){
+			        // console.log(snapshot.val().latitude);
+			        // console.log(snapshot.val().longitude);
+			        // console.log(snapshot.val());
+			        var li = document.createElement('li');
+			        li.innerHTML = '<li class = "card-panel">' + '<h6>Latitude : ' + snapshot.val().latitude + '<br>' + 'Longitude : ' + snapshot.val().longitude + '<br>' + '<br>' +'<a href ='  + snapshot.val().imageURL + ' target = "blank">' + 'See the image' + '</a>' + '</h6>' + getMyLocation({ lat : snapshot.val().latitude, lng : snapshot.val().longitude }) + '</li>';
+			        list.appendChild(li);
+			        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
+			        placeMarker(location, map);
+				});
+		 		new AutocompleteDirectionsHandler(map);
+			});
+		}
+	}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM&libraries=places&callback=initMap"></script>
+</html>
