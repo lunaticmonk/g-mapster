@@ -9,8 +9,9 @@ var config = {
 		firebase.initializeApp(config);
 
 		//Get the upload button
-		var filebutton = document.querySelector('#uploadbtnvisible');
-		filebutton.addEventListener('change', function(e){
+		var originalbtn = document.querySelector('#uploadbtn');
+		var visiblebtn = document.querySelector('#uploadbtnvisible');
+		originalbtn.addEventListener('change', function(e){
 			//Get the file
 			console.log('button clicked for file upload');
 				var file = e.target.files[0];
@@ -29,63 +30,27 @@ var config = {
 						}
 					}
 				);
-		});
+			});
 
 		// Save the coordinates
 
 		function saveGarbagePlace(imageURL){
 			if(navigator.geolocation){
 				navigator.geolocation.getCurrentPosition(function(position){
-					console.log(position);
-					firebase.database().ref('/').push({
-						latitude : position.coords.latitude,
-						longitude : position.coords.longitude,
-						imageURL : imageURL,
-						address : storeAddress(position)
+					var geocoder = new google.maps.Geocoder();
+					var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					geocoder.geocode({ location : latlng }, function(results, status){
+						firebase.database().ref('/').push({
+							latitude : position.coords.latitude,
+							longitude : position.coords.longitude,
+							imageURL : imageURL,
+							landmark : results[0]['formatted_address']
+						});
 					});
 					console.log('inserted');
-					markTheMap(position);
+					// markTheMap(position);
 				});
 			}
 			else
 				alert('Your device doesnt support geolocation');
 		}
-
-		// Mark the map
-
-		function markTheMap(position){
-			console.log('markTheMap map');
-			var map = new google.maps.Map(document.getElementById('map'), {
-	          	zoom: 4,
-	          	center: { lat : position.coords.latitude-2, lng : position.coords.longitude-2 }
-        	});
-        	var ref = firebase.database().ref('/');
-        	ref.orderByChild('latitude').on('child_added', function(snapshot){
-		        // console.log(snapshot.val().latitude);
-		        // console.log(snapshot.val().longitude);
-		        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
-		        placeMarker(location, map);
-		      });
-		}
-
-		function placeMarker(location, map){
-			var marker = new google.maps.Marker({
-		        position: location,
-		        map: map,
-		        icon : 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-		        title : getMyLocation(location)
-	        });
-		}
-
-
-
-
-
-
-
-
-// var originalbtn = document.querySelector('#originalbtn');		//hidden button(display : none)	(<input type = "file">)	
-// 	visiblebtn = document.querySelector('#visiblebtn');			//visible button(visible)	(simple button)
-// visiblebtn.addEventListener('click', function(){
-// 	originalbtn.click();
-// });
