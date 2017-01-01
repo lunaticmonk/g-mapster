@@ -1,41 +1,36 @@
-var accuratebtn = document.querySelector('#accuratebtn');
-
-accuratebtn.addEventListener('click', function(){
-  getMyLocation();
-});
-
 function getMyLocation(location){
-  if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(function(position){
-      // console.log(location);
-      var latlng = new google.maps.LatLng( location.lat, location.lng );
-      var geocoder = new google.maps.Geocoder();
-      formatted_address = geocoder.geocode({ location : latlng }, function(results, status){
-        console.log(results[0]['formatted_address']);
-        return results[0]['formatted_address'];
-      });
-    });
+  var address;
+  var latlng = new google.maps.LatLng( location.lat, location.lng );
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ location : latlng }, callBack);
+  
+  function callBack(results, status){
+    // console.log(results);
+    var list = document.querySelector('#list ul li');
+    var a = document.createElement('p');
+    a.innerText = results[0]['formatted_address'];
+    list.append(a);
+    address = results[0]['formatted_address'];
+  return address;
+  }
+  return address;
+}
+
+function geocodeit(location, marker){
+  var latlng = new google.maps.LatLng( location.latitude, location.longitude );
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ location : latlng }, callBack);
+  function callBack(results, status, marker){
+    console.log(results[0]['formatted_address']);
   }
 }
 
-function displayResults(results, status){
-  console.log(results[0]['formatted_address']);
-  return results[0]['formatted_address']
-}
+function storeAddress(position){
+  var latlng = new google.maps.LatLng( position.coords.latitude, position.coords.longitude );
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({ location : latlng }, callBack);
 
-function geolocation(){
-console.log('geolocation called');
-var loc = {};
-var geocoder = new google.maps.Geocoder();
-if(google.loader.ClientLocation){
-  loc.lat = google.loader.ClientLocation.latitude;
-  loc.lng = google.loader.ClientLocation.longitude;
-}
-var latlng = new google.maps.LatLng(loc.lat, loc.lng);
-      geocoder.geocode({'latLng': latlng}, function(results, status) {
-          if(status == google.maps.GeocoderStatus.OK) {
-              // alert(results[0]['formatted_a0ddress']);
-              console.log(results[0]['formatted_address']);
-          };
-      });
+  function callBack(results, status){
+    return results[0]['formatted_address'];
+  }
 }

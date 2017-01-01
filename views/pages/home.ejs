@@ -102,7 +102,8 @@
 					firebase.database().ref('/').push({
 						latitude : position.coords.latitude,
 						longitude : position.coords.longitude,
-						imageURL : imageURL
+						imageURL : imageURL,
+						address : storeAddress(position)
 					});
 					console.log('inserted');
 					markTheMap(position);
@@ -154,7 +155,7 @@
 			        // console.log(snapshot.val().longitude);
 			        // console.log(snapshot.val());
 			        var li = document.createElement('li');
-			        li.innerHTML = '<li class = "card-panel">' + '<h6>Latitude : ' + snapshot.val().latitude + '<br>' + 'Longitude : ' + snapshot.val().longitude + '<br>' + '<br>' +'<a href ='  + snapshot.val().imageURL + ' target = "blank">' + 'See the image' + '</a>' + '</h6></li>';
+			        li.innerHTML = '<li class = "card-panel">' + '<h6>Latitude : ' + snapshot.val().latitude + '<br>' + 'Longitude : ' + snapshot.val().longitude + '<br>' + '<br>' +'<a href ='  + snapshot.val().imageURL + ' target = "blank">' + 'See the image' + '</a>' + '</h6>' + getMyLocation({ lat : snapshot.val().latitude, lng : snapshot.val().longitude }) + '</li>';
 			        list.appendChild(li);
 			        var location = { lat : snapshot.val().latitude, lng : snapshot.val().longitude };
 			        placeMarker(location, map);
@@ -168,5 +169,4 @@
     <script type="text/javascript" src = "js/googlemaps.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM&libraries=places&callback=initMap">
     </script>
-    <script type="text/javascript" src = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM"></script>
 </html>
