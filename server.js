@@ -12,6 +12,7 @@ mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyparser.urlencoded({ extended : true }));
+app.use(allowCrossDomain);
 app.use(session({
   cookieName: 'session',
   secret: 'g-mapster',
@@ -69,6 +70,7 @@ app.route('/signup')
 	});
 
 router.get('/user', function(req, res){
+	res.header('Access-Control-Allow-Origin', '*');
 	res.render('pages/user');
 });
 
@@ -80,6 +82,20 @@ router.get('/logout', function(req, res){
 	req.session.destroy();
 	res.send('Logged out successfully');
 });
+
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
 
 app.use('/', router);
 app.listen(port);
