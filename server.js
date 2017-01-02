@@ -11,6 +11,13 @@ var cors = require('cors');
 
 mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 
+app.all('*', function(req, res, next) {
+     var origin = req.get('origin'); 
+     res.header('Access-Control-Allow-Origin', origin);
+     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+     res.header('Access-Control-Allow-Headers', 'Content-Type');
+     next();
+});
 app.use(express.static(__dirname + '/public'));
 app.use(bodyparser.urlencoded({ extended : true }));
 app.use(cors);
