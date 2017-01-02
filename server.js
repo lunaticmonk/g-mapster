@@ -7,11 +7,11 @@ var User = require('./models/user');
 var hash = require('./my_modules/smallfunc');
 var session = require('client-sessions');
 var port = process.env.PORT || 8000;
-var cors = require('cors');
+// var cors = require('cors');
 
 mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
+// app.use(cors());
 
-app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(bodyparser.urlencoded({ extended : true }));
 app.use(session({
@@ -20,6 +20,13 @@ app.use(session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
 }));
+
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+ 
 app.set('view engine', 'ejs');
 
 router.get('/', function(req, res){
