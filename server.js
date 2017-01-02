@@ -20,6 +20,7 @@ app.use(session({
   duration: 30 * 60 * 1000,
   activeDuration: 5 * 60 * 1000,
 }));
+app.set('view engine', 'ejs');
 
 app.all('/', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -27,7 +28,6 @@ app.all('/', function(req, res, next) {
   next();
  });
  
-app.set('view engine', 'ejs');
 
 router.get('/', function(req, res){
 	res.redirect('/user');

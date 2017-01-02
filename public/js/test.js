@@ -64,10 +64,6 @@ var config = {
 				},
 				function(error){
 					alert(error.message);
-				},
-				{
-					enableHighAccuracy: true
-	              	,timeout : 5000
 				});
 			}
 			else
