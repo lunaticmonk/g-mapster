@@ -7,12 +7,13 @@ var User = require('./models/user');
 var hash = require('./my_modules/smallfunc');
 var session = require('client-sessions');
 var port = process.env.PORT || 8000;
+var cors = require('cors');
 
 mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyparser.urlencoded({ extended : true }));
-app.use(allowCrossDomain);
+app.use(cors);
 app.use(session({
   cookieName: 'session',
   secret: 'g-mapster',
@@ -83,19 +84,19 @@ router.get('/logout', function(req, res){
 	res.send('Logged out successfully');
 });
 
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+// var allowCrossDomain = function(req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
-    // intercept OPTIONS method
-    if ('OPTIONS' == req.method) {
-      res.send(200);
-    }
-    else {
-      next();
-    }
-};
+//     // intercept OPTIONS method
+//     if ('OPTIONS' == req.method) {
+//       res.send(200);
+//     }
+//     else {
+//       next();
+//     }
+// };
 
 app.use('/', router);
 app.listen(port);

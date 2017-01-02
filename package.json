@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "client-sessions": "^0.7.0",
+    "cors": "^2.8.1",
     "crypto": "0.0.3",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
@@ -18,8 +19,8 @@
     "mongodb": "^2.2.16",
     "mongoose": "^4.7.3"
   },
-  "engines" : {
-    "node" : "4.4.7",
-    "npm" : "3.10.7"
+  "engines": {
+    "node": "4.4.7",
+    "npm": "3.10.7"
   }
 }
