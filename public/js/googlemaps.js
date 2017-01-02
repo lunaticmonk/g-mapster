@@ -114,7 +114,7 @@ function initMap(){
   if(navigator.geolocation){
     navigator.geolocation.getCurrentPosition(function(position){
       map = new google.maps.Map(document.getElementById('map'), {
-        zoom : 4,
+        zoom : 10,
         center : { lat : 28.38, lng : 77.12 }
       });
       var centermarker = new google.maps.Marker({
@@ -142,6 +142,7 @@ function placeMarker(location, landmark){
   var marker = new google.maps.Marker({
     position : location,
     map : map,
-    title : String(landmark)
+    title : String(landmark),
+    animation : google.maps.Animation.DROP
   });
 }

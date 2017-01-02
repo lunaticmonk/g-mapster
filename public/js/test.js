@@ -18,16 +18,25 @@ var config = {
 			//Create storage refernce for it
 				var storageRef = firebase.storage().ref('g-mapster/' + file.name );
 			//Upload
+				var uploader = document.querySelector('#uploader');
 				var task = storageRef.put(file);
 				task.on('state_changed',
 					function progress(s){
 						var upload = s.bytesTransferred/s.totalBytes;
+						uploader.value = upload * 100;
 						console.log(upload);
 						if(upload == 1){
 							var downloadURL = task.h.downloadURLs[0];
 							console.log(downloadURL);
-							saveGarbagePlace(downloadURL);
 						}
+					},
+
+					function error(err){
+						console.log(err);
+					},
+					function complete(){
+						saveGarbagePlace(downloadURL);
+						alert('upload completed');
 					}
 				);
 			});
