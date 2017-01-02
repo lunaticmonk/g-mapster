@@ -46,7 +46,7 @@ var config = {
 		function saveGarbagePlace(imageURL){
 			if(navigator.geolocation){
 				navigator.geolocation.getCurrentPosition(function(position){
-					alert(position.coords.latitude);
+					// alert(position.coords.latitude);
 					var geocoder = new google.maps.Geocoder();
 					var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					geocoder.geocode({ location : latlng }, function(results, status){
