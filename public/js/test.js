@@ -16,7 +16,7 @@ var config = {
 			console.log('button clicked for file upload');
 				var file = e.target.files[0];
 			//Create storage refernce for it
-				var storageRef = firebase.storage().ref('g-mapster/' + file.name );
+				var storageRef = firebase.storage().ref('xg-mapster/' + file.name );
 			//Upload
 				var uploader = document.querySelector('#uploader');
 				var task = storageRef.put(file);
@@ -28,6 +28,7 @@ var config = {
 						if(upload == 1){
 							var downloadURL = task.h.downloadURLs[0];
 							console.log(downloadURL);
+							saveGarbagePlace(downloadURL);
 						}
 					},
 
@@ -35,7 +36,6 @@ var config = {
 						console.log(err);
 					},
 					function complete(){
-						saveGarbagePlace(downloadURL);
 						alert('upload completed');
 					}
 				);
