@@ -51,7 +51,7 @@ var config = {
 					var geocoder = new google.maps.Geocoder();
 					var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					geocoder.geocode({ location : latlng }, function(results, status){
-						alert('time to geocode');
+						console.log('time to geocode');
 						firebase.database().ref('/').push({
 							latitude : position.coords.latitude,
 							longitude : position.coords.longitude,
@@ -59,8 +59,15 @@ var config = {
 							landmark : results[0]['formatted_address']
 						});
 					});
-					alert('inserted');
+					console.log('inserted');
 					// markTheMap(position);
+				},
+				function(error){
+					console.log(error);
+				},
+				{
+					enableHighAccuracy: true
+	              	,timeout : 5000
 				});
 			}
 			else
