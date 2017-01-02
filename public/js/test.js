@@ -44,12 +44,14 @@ var config = {
 		// Save the coordinates
 
 		function saveGarbagePlace(imageURL){
+			alert('saveGarbagePlace called.');
 			if(navigator.geolocation){
 				navigator.geolocation.getCurrentPosition(function(position){
-					// alert(position.coords.latitude);
+					alert(position.coords.latitude);
 					var geocoder = new google.maps.Geocoder();
 					var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					geocoder.geocode({ location : latlng }, function(results, status){
+						alert('time to geocode');
 						firebase.database().ref('/').push({
 							latitude : position.coords.latitude,
 							longitude : position.coords.longitude,
@@ -57,7 +59,7 @@ var config = {
 							landmark : results[0]['formatted_address']
 						});
 					});
-					console.log('inserted');
+					alert('inserted');
 					// markTheMap(position);
 				});
 			}
