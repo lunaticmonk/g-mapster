@@ -63,7 +63,7 @@ var config = {
 					// markTheMap(position);
 				},
 				function(error){
-					console.log(error);
+					alert(error);
 				},
 				{
 					enableHighAccuracy: true
