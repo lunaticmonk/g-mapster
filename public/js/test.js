@@ -24,7 +24,7 @@ var config = {
 					function progress(s){
 						var upload = s.bytesTransferred/s.totalBytes;
 						uploader.value = upload * 100;
-						console.log(upload);
+						console.log(upload*100);
 						if(upload == 1){
 							var downloadURL = task.h.downloadURLs[0];
 							console.log(downloadURL);
@@ -46,6 +46,7 @@ var config = {
 		function saveGarbagePlace(imageURL){
 			if(navigator.geolocation){
 				navigator.geolocation.getCurrentPosition(function(position){
+					alert(position.coords.latitude);
 					var geocoder = new google.maps.Geocoder();
 					var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 					geocoder.geocode({ location : latlng }, function(results, status){
