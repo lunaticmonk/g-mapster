@@ -11,9 +11,9 @@ var cors = require('cors');
 
 mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 
+app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(bodyparser.urlencoded({ extended : true }));
-app.use(cors());
 app.use(session({
   cookieName: 'session',
   secret: 'g-mapster',
