@@ -3,10 +3,8 @@ html, body {
   border: 2px solid #e3e3e3;
 }
 #map {
-  height: 500px;
-  border : 1px solid #e3e3e3;
-  margin-left : 2%;
-  margin-top : 2%;
+  height: 600px;
+  margin : 2% 2%;
  }
  .controls {
   margin-top: 10px;
