@@ -44,10 +44,8 @@ originalbtn.addEventListener('change', function(e){
 // Save the coordinates
 
 function saveGarbagePlace(imageURL){
-	alert('saveGarbagePlace called.');
 	if(navigator.geolocation){
 		navigator.geolocation.getCurrentPosition(function(position){
-			alert(position.coords.latitude);
 			var geocoder = new google.maps.Geocoder();
 			var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 			geocoder.geocode({ location : latlng }, function(results, status){
@@ -59,7 +57,7 @@ function saveGarbagePlace(imageURL){
 					landmark : results[0]['formatted_address']
 				});
 			});
-			console.log('inserted');
+			alert('inserted');
 			// markTheMap(position);
 		},
 		function(error){

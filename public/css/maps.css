@@ -56,6 +56,10 @@ html, body {
   margin-left : 2%;
 }
 
+/*#origin-input {
+  display : none;
+}
+*/
 #origin-input,
 #destination-input {
   background-color: #fff;

@@ -12,6 +12,7 @@ function AutocompleteDirectionsHandler(map) {
 
   var originAutocomplete = new google.maps.places.Autocomplete(
       originInput, {placeIdOnly: true});
+  console.log(originAutocomplete);
   var destinationAutocomplete = new google.maps.places.Autocomplete(
       destinationInput, {placeIdOnly: true});
 
@@ -23,7 +24,7 @@ function AutocompleteDirectionsHandler(map) {
   this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-  // console.log(originInput);
+  console.log(originInput);
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
 }
@@ -43,7 +44,8 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
   var me = this;
   autocomplete.bindTo('bounds', this.map);
   autocomplete.addListener('place_changed', function() {
-  if(mode != 'DEST'){
+  // if(mode != 'DEST'){
+    var place = autocomplete.getPlace();
     // -----------------------------------------------------------------------------------
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(function(position){
@@ -61,24 +63,23 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(aut
           service.textSearch(request, callback);
           }
         });
-
-
         function callback(results, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
             me.originPlaceId = results[0]['place_id'];
             console.log(me.originPlaceId);
           }
         }
-        me.route();
       });
     }
-    }
-  else{    
+        me.route();
+    // }
+  // else{ 
+    if( mode == 'DEST'){
     var place = autocomplete.getPlace();
     me.destinationPlaceId = place.place_id;
-    console.log(me.destinationPlaceId);
     me.route();
   }
+  // }
 
     // --------------------------------------------------------------------------------------------
   });
@@ -97,6 +98,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     travelMode: this.travelMode
   }, function(response, status) {
     if (status === 'OK') {
+      console.log(response);
       me.directionsDisplay.setDirections(response);
     } else {
       window.alert('Directions request failed due to ' + status);
