@@ -32,12 +32,9 @@ function initMap(){
     alert('Your device does not support geolocation');
 }
 
-// firebase.initializeApp(config);
-
 var ref = firebase.database().ref('/');
 function retrieveAndPlace(){
   ref.orderByChild('latitude').on('child_added', function(snapshot){
-    // console.log(snapshot.val());
     placeMarker(snapshot.val());
   });
 }
@@ -56,7 +53,7 @@ function placeMarker(object){
   });
 
   var infowindow = new google.maps.InfoWindow({
-    content : object.landmark + '\n' + '<a href = ' + object.imageURL + ' target = "blank" >' + 'See the image' +  '</a>'
+    content : object.landmark + '<br>' + '<a href = ' + object.imageURL + ' target = "blank" >' + 'See the image' +  '</a>'
   });
   marker.addListener('click', function(){
     infowindow.open(map, marker);
