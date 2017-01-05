@@ -53,7 +53,7 @@ function placeMarker(object){
   });
 
   var infowindow = new google.maps.InfoWindow({
-    content : object.landmark + '<br>' + '<a href = ' + object.imageURL + ' target = "blank" >' + 'See the image' +  '</a>'
+    content : object.landmark + '<br>' + '<a href = >' + '<img src = ' + object.imageURL + 'data-action = "zoom" style = "width : 100%; height : auto;">' +  '</a>'
   });
   marker.addListener('click', function(){
     infowindow.open(map, marker);
