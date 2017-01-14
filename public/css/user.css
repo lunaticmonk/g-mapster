@@ -1,28 +1,30 @@
 html, body {
-			margin : 0;
-			padding : 0;
-		}
+	margin : 0;
+	padding : 0;
+}
 
-		body {
-			background-color : #A3E4D7;
+body {
+	background-color : #A3E4D7;
 
-		}
+}
 
-		main {
-			display : flex;
-			flex-direction : column;
-			justify-content: center;
-			align-items : center;
-		}
+main {
+	display : flex;
+	flex-direction : column;
+	justify-content: center;
+	align-items : center;
+	margin-top : 8%;
+}
 
-		#uploadbtn {
-			/*display : none;*/
-		}
+#uploadbtn {
+	/*display : none;*/
+	padding-left : 10%;
+}
 
-		#uploadbtnvisible {
-			transform : translateY(20rem);
-		}
-		label {
-			color : #5D6D7E;
-			font-size : 4em;
-		}
+#uploadbtnvisible {
+	transform : translateY(20rem);
+}
+label {
+	color : #5D6D7E;
+	font-size : 4em;
+}

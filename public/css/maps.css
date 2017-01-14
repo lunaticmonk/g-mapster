@@ -3,6 +3,7 @@ html, body {
   background-color: #e3e3e3;
   border: 2px solid #e3e3e3;
 }
+
 #map {
   height: 600px;
   margin : 2% 2%;

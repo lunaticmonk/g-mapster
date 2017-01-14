@@ -1,3 +1,9 @@
+To try, goto :-
+https://g-mapster.herokuapp.com
+Upload an image of garbage in your vicinity.
+See the status of the garbage at:-
+https://g-mapster.herokuapp.com/home
+
 #G-Mapster
 
 A hack in which helps in cleaning areas in cities.(useful for municipalities).
