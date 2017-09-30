@@ -12,6 +12,11 @@ var port = process.env.PORT || 8000;
 mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 // app.use(cors());
 
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 app.use(express.static(__dirname + '/public'));
 app.use(bodyparser.urlencoded({ extended : true }));
 app.use(session({
@@ -22,12 +27,7 @@ app.use(session({
 }));
 app.set('view engine', 'ejs');
 
-app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
- });
- 
+
 
 router.get('/', function(req, res){
 	res.redirect('/user');
@@ -62,7 +62,7 @@ app.route('/signup')
 
 	.post(function(req, res){
 		console.log(req.body.firstname, req.body.lastname);
-			var newUser = new User({			
+			var newUser = new User({
 				firstname : req.body.firstname,
 				lastname : req.body.lastname,
 				email : req.body.email,
