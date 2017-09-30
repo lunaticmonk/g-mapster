@@ -9,7 +9,6 @@ var session = require('client-sessions');
 var port = process.env.PORT || 8000;
 // var cors = require('cors');
 
-mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 // app.use(cors());
 
 app.all('/', function(req, res, next) {
@@ -26,6 +25,7 @@ app.use(session({
   activeDuration: 5 * 60 * 1000,
 }));
 app.set('view engine', 'ejs');
+mongoose.connect('mongodb://sumedh:sumedh@ds139448.mlab.com:39448/gmapster');
 
 
 
