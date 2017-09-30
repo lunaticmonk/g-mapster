@@ -24,7 +24,9 @@ function initMap(){
         map : map
       });
       map.setCenter({ lat : position.coords.latitude, lng : position.coords.longitude });
-      new AutocompleteDirectionsHandler(map);
+      // new AutocompleteDirectionsHandler(map);
+    }, function(err) {
+      console.log(err);
     });
     retrieveAndPlace();
   }

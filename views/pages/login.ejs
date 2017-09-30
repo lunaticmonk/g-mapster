@@ -4,13 +4,23 @@
 	<title>Login</title>
 </head>
 <body>
-<% include ../partials/navbar %>
-<div class = "container">
-	<form action = "/login" method = "post">
-		<input type="email" name="email" placeholder = "Email">
-		<input type="password" name = "password" placeholder = "Password">
-		<input type="submit" name="submit" class = "btn cyan">
-	</form>
-</div>
+	<% include ../partials/navbar %>
+		<div class="container">
+			<div class="row">
+				<div class="col s6">
+					<form action="/login" method="post">
+						<input type="email" name="email" placeholder="Email">
+						<input type="password" name="password" placeholder="Password">
+						<input type="submit" name="submit" class="btn cyan">
+					</form>
+				</div>
+				<div class="col s6">
+					<button type="button" name="button" class="btn teal">Google<i class="material-icons"></i></button>
+					<button type="button" name="button" class="btn teal">Facebook<i class="material-icons"></i></button>
+					<button type="button" name="button" class="btn teal">Twitter<i class="material-icons"></i></button>
+					<button type="button" name="button" class="btn teal">Github<i class="material-icons"></i></button>
+				</div>
+			</div>
+		</div>
 </body>
 </html>

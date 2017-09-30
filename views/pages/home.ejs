@@ -3,9 +3,10 @@
 <head>
 	<title>Home</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
   <link rel="stylesheet" type="text/css" href="css/zoom.css">
 	<link rel="stylesheet" type="text/css" href="css/maps.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src = "js/zoom.js"></script>
   <script type="text/javascript" src = "js/transition.js"></script>
 </head>
@@ -20,7 +21,7 @@
 
       <input type="radio" name="type" id="changetype-establishment">
       <label for="changetype-establishment">Establishments</label>
-      
+
       <input type="radio" name="type" id="changetype-address">
       <label for="changetype-address">Addresses</label>
 
@@ -31,7 +32,7 @@
 
     <!-- directions -->
     <input id="origin-input" class="controls" type="text"
-        placeholder="Enter an origin location" value = "Sumedh">
+        placeholder="Enter an origin location" value = "">
 
     <input id="destination-input" class="controls" type="text"
         placeholder="Enter a destination location">
@@ -56,8 +57,8 @@
   	</div>
 </body>
 	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+	<script type="text/javascript" src = "js/googlemaps.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM&libraries=places&callback=initMap">
   </script>
   <script type="text/javascript" src = "js/autocomplete.js"></script>
-  <script type="text/javascript" src = "js/googlemaps.js"></script>
 </html>
