@@ -1,6 +1,6 @@
 # G-Mapster
 
-A hack in which helps in cleaning areas in cities.(useful for municipalities).
+A hack which helps in cleaning areas in cities.(useful for municipalities).
 
 To try, goto :-
 https://g-mapster.herokuapp.com
@@ -22,7 +22,7 @@ This is how it works.
 ### For development
 - Fork the repo
 ```
-git clone https://github.com/<YOUR_USERNAME>/g-mapster
+git clone https://github.com/sumedh123/g-mapster
 cd g-mapster
 npm install
 ```
