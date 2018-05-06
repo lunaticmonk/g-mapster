@@ -1,6 +1,6 @@
 # G-Mapster
 
-A hack which helps in cleaning areas in cities.(useful for municipalities).
+A hack which helps in cleaning areas in cities.(useful for municipalities). Now a days, in a lot of areas in cities, garbage is not cleaned properly. Somewhere the dustbins are overfilled and overflow of garbage occurs whereas somewhere there are not dustbins at all. G-mapster helps in cleaning such areas in cities.
 
 To try, goto :-
 https://g-mapster.herokuapp.com
@@ -19,7 +19,12 @@ The location and the image is stored in the database and the admin side(municipa
 As the number of images from a particular area increases, the priority of cleaning that area also increases.
 This is how it works.
 
-## Prerequisites
+### Screenshots
+![index](./public/imgs/upload.png)
+![home](./public/imgs/home.png)
+
+
+### Prerequisites
 
 You will need the following things properly installed on your computer.
 
