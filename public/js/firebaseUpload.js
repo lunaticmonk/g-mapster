@@ -1,12 +1,10 @@
 var config = {
-    apiKey: "AIzaSyDqcidTNKiWrY_n2rl-J8xpoLBetUY0IiM",
-    authDomain: "g-mapster-1482049698790.firebaseapp.com",
-    databaseURL: "https://g-mapster-1482049698790.firebaseio.com",
-    storageBucket: "g-mapster-1482049698790.appspot.com",
-    messagingSenderId: "392450380738"
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    storageBucket: "",
+    messagingSenderId: ""
 };
-// console.log(firebase);
-// console.log('this file is being used');
 
 firebase.initializeApp(config);
 
