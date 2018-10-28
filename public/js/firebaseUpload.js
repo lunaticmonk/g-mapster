@@ -1,3 +1,4 @@
+
 var config = {
     apiKey: "",
     authDomain: "",
